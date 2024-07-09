@@ -4,6 +4,7 @@ import LoadingSpinner from './LoadingSpinner'
 import { useApi } from './useApi'
 import PokemonAbility from './PokemonAbility'
 import ErrorMessage from './ErrorMessage'
+import PropTypes from 'prop-types';
 
 const formatName = (nameWithDash) => nameWithDash.replace('-', ' ')
 
@@ -59,5 +60,15 @@ const PokemonPage = ({ previous, next }) => {
     </>
   )
 }
+PokemonPage.propTypes = {
+  previous: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    // Add other required props as needed
+  }),
+  next: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    // Add other required props as needed
+  }),
+};
 
 export default PokemonPage
