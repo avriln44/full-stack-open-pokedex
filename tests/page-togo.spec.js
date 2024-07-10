@@ -10,4 +10,18 @@ describe('Pokedex', () => {
       )
     ).toBeVisible();
   });
+
+  test('can navigate to a particular Pokemon page', async ({ page }) => {
+    console.log('Navigating to the main page');
+    await page.goto('/');
+
+    console.log('Clicking on Ivysaur link');
+    await page.click('text=ivysaur');
+
+    console.log("Ensuring navigation to Ivysaur's page");
+    await expect(page).toHaveURL(/.*ivysaur/);
+
+    console.log("Checking for specific content on Ivysaur's page");
+    await expect(page.getByText('chlorophyll')).toBeVisible();
+  });
 });
