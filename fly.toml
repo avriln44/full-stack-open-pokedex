@@ -1,0 +1,39 @@
+# fly.toml file generated for fullstack-pokedex-mn on 2024-07-10T22:28:55+03:00
+
+app = "fullstack-pokedex-mn"
+kill_signal = "SIGINT"
+kill_timeout = 5
+mounts = []
+primary_region = "arn"
+
+[env]
+  PORT = "3000" # Changed to match internal_port below
+
+[processes]
+  app = "node app.js" # Added this block
+
+[[services]]
+  internal_port = 3000 # Changed to match the PORT env variable
+  processes = ["app"]
+  protocol = "tcp"
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
