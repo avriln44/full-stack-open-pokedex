@@ -40,4 +40,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           # Set DRY_RUN to true for testing
-          DRY_RUN: true
+          DRY_RUN: false
+      - name: List tags after bumping version
+        run: git tag -l
