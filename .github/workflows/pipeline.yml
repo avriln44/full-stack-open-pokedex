@@ -40,4 +40,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           # Set DRY_RUN to true for testing
-          DRY_RUN: false
+          DRY_RUN: true
