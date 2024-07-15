@@ -55,27 +55,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 notify_success:
-    needs: [tag_release]
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Notify Discord of success
-        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
-        uses: EDUJOS/ds-webhook@v1.0.0
-        with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          msg: "Deployment successful! A new version has been deployed."
+  needs: [tag_release]
+  runs-on: ubuntu-20.04
+  steps:
+    - name: Notify Discord of success
+      if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+      uses: EDUJOS/ds-webhook@v1.0.0
+      with:
+        webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+        msg: 'Deployment successful! A new version has been deployed.'
 
-  notify_failure:
-    runs-on: ubuntu-20.04
-    if: failure()
-    steps:
-      - name: Notify Discord of failure
-        uses: EDUJOS/ds-webhook@v1.0.0
-        with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          msg: |
-            Deployment failed!
-            Job: ${{ github.job }}
-            Commit: ${{ github.sha }}
-            Commit Message: ${{ github.event.head_commit.message }}
-            Author: ${{ github.event.head_commit.author.name }}
+notify_failure:
+  runs-on: ubuntu-20.04
+  if: failure()
+  steps:
+    - name: Notify Discord of failure
+      uses: EDUJOS/ds-webhook@v1.0.0
+      with:
+        webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+        msg: |
+          Deployment failed!
+          Job: ${{ github.job }}
+          Commit: ${{ github.sha }}
+          Commit Message: ${{ github.event.head_commit.message }}
+          Author: ${{ github.event.head_commit.author.name }}
