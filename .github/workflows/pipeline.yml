@@ -43,3 +43,9 @@ jobs:
           DRY_RUN: false
       - name: List tags after bumping version
         run: git tag -l
+      - name: Push new tags
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          git push origin --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
