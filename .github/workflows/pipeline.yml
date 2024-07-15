@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
@@ -19,5 +23,5 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build
-      - name: test
-        run: npm test
+      - name: jest test
+        run: npm test:jest
