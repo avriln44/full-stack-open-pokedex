@@ -23,3 +23,6 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build
+      - name: Deploy
+        if: ${{ github.event_name == 'push' }}
+        run: echo "Deploying to production"
