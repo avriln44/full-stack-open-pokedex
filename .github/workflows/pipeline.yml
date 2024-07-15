@@ -60,9 +60,9 @@ notify_success:
     steps:
       - name: Notify Discord of success
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
-        uses: Ilshidur/discord-webhook@1.0.0
+        uses: EDUJOS/ds-webhook@v1.0.0
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           msg: "Deployment successful! A new version has been deployed."
 
   notify_failure:
@@ -70,9 +70,9 @@ notify_success:
     if: failure()
     steps:
       - name: Notify Discord of failure
-        uses: Ilshidur/discord-webhook@1.0.0
+        uses: EDUJOS/ds-webhook@v1.0.0
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           msg: |
             Deployment failed!
             Job: ${{ github.job }}
