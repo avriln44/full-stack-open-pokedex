@@ -26,3 +26,18 @@ jobs:
       - name: Deploy
         if: ${{ github.event_name == 'push' }}
         run: echo "Deploying to production"
+
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' }}
+        uses: anothrNick/github-tag-action@1.164.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          # Set DRY_RUN to true for testing
+          DRY_RUN: false
